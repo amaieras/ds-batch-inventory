@@ -1,0 +1,8 @@
+<mat-grid-list cols="1" rowHeight="3:1">
+  <mat-grid-tile>
+    <input #fileXslx type="file" [hidden]="true" placeholder="Import .xslx file"  (change)="parseXslx($event)">
+    <button mat-fab color="primary" #uploadXlsx (click)="fileXslx.click()" aria-label="Example icon button with a delete icon">
+      <mat-icon>publish</mat-icon>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>
