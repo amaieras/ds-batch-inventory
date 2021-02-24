@@ -66,15 +66,16 @@ export class UploadCsvFileComponent implements OnInit {
       headers
     };
     this.uploadFileService.getHeader().pipe(
-      map(h => h[0].headers)
+      map(h => h[0] ? h[0].headers : null)
     ).subscribe(existingHeader => {
       if (!existingHeader) {
         this.uploadFileService.saveHeader(headerObj).then(resp => {
-          this.openDialog(existingHeader, 'Fiser salvat cu succes.');
+          this.openDialog(existingHeader, 'Fiser salvat cu succes. Si a fost adaugat un format de fisier.');
         });
       } else {
         if (headerObj.headers.length === existingHeader.length &&
           existingHeader.every((value, index) => value === headerObj.headers[index])){
+          this.openDialog(existingHeader, 'Fiser salvat cu succes.');
 
         } else {
           this.openDialog(existingHeader, 'Capul de tabel e diferit. Ar trebui sa arate asa:');
