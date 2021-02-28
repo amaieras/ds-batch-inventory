@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgxCsvParser, NgxCSVParserError} from 'ngx-csv-parser';
 import * as XLSX from 'xlsx';
 import {UploadFileService} from '../../services/upload-file.service';
-import {map} from 'rxjs/operators';
-import {DsDialogMessageComponent} from '../core/ds-dialog-message/ds-dialog-message.component';
+import {finalize, first, map} from 'rxjs/operators';
 import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-upload-csv-file',
@@ -15,12 +15,15 @@ export class UploadCsvFileComponent implements OnInit {
 
   constructor(
     private ngxCsvParser: NgxCsvParser,
-    private uploadFileService: UploadFileService,
-    public dialog: MatDialog) { }
+    private _uploadFileService: UploadFileService,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar) { }
   csvRecords: any[] = [];
   header = false;
 
   arrayBuffer: any;
+  mode: any = 'indeterminate';
+  loading = false;
   ngOnInit(): void {
   }
   parseCsv(ev: Event) {
@@ -30,7 +33,7 @@ export class UploadCsvFileComponent implements OnInit {
 
     // Parse the file you want to select for the operation along with the configuration
     this.ngxCsvParser.parse(files[0], { header: this.header, delimiter: ';' })
-      .pipe().subscribe((result: Array<any>) => {
+      .pipe(first()).subscribe((result: Array<any>) => {
 
       console.log('Result', result);
 
@@ -52,48 +55,51 @@ export class UploadCsvFileComponent implements OnInit {
         initial[name] = XLSX.utils.sheet_to_json(sheet);
         return initial;
       }, {});
-      const header = this.parseDataForHeader(jsonData);
-      this.saveHeader(header);
-
-      this.uploadFileService.saveBatch({});
+      this.saveHeader(jsonData, ev);
 
     };
     reader.readAsBinaryString(file);
   }
 
-  saveHeader(headers) {
+  saveHeader(jsonData, ev) {
+    const headers = this.parseDataForHeader(jsonData);
     const headerObj = {
       headers
     };
-    this.uploadFileService.getHeader().pipe(
-      map(h => h[0] ? h[0].headers : null)
+    this.loading = true;
+    this._uploadFileService.getHeader().pipe(
+      first(),
+      map(h => h[0] ? h[0].headers : null),
+      finalize(() => {
+        ev.target.value = '';
+        this.loading = false;
+      })
     ).subscribe(existingHeader => {
+      let canSaveData = false;
+      let message = '';
       if (!existingHeader) {
-        this.uploadFileService.saveHeader(headerObj).then(resp => {
-          this.openDialog(existingHeader, 'Fiser salvat cu succes. Si a fost adaugat un format de fisier.');
+        this._uploadFileService.saveHeader(headerObj).then(() => {
+          message = 'Fiser salvat cu succes. Si a fost adaugat un format de fisier.';
+          canSaveData = true;
         });
       } else {
         if (headerObj.headers.length === existingHeader.length &&
           existingHeader.every((value, index) => value === headerObj.headers[index])){
-          this.openDialog(existingHeader, 'Fiser salvat cu succes.');
-
+          message = 'Fiser salvat cu succes.';
+          canSaveData = true;
         } else {
-          this.openDialog(existingHeader, 'Capul de tabel e diferit. Ar trebui sa arate asa:');
+          message = 'Capul de tabel e diferit. Ar trebui sa arate asa:';
         }
       }
 
+      // header is valid
+      if (canSaveData) { this.saveData(jsonData).pipe(first()).subscribe(() => this.openDialog(existingHeader, message)); }
     });
   }
 
   openDialog(data, message) {
-
-    const dataIn = {
-      data,
-      message
-    };
-    this.dialog.open(DsDialogMessageComponent,
-      {
-      data: dataIn
+    this._snackBar.open(message, 'Close', {
+      duration: 5000,
     });
   }
 
@@ -103,5 +109,9 @@ export class UploadCsvFileComponent implements OnInit {
     headers[4] = 'Total Unit Cost';
 
     return headers;
+  }
+
+  private saveData(jsonData) {
+    return this._uploadFileService.saveBatch(jsonData);
   }
 }

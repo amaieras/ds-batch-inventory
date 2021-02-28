@@ -1,7 +1,19 @@
-<mat-grid-list cols="1" rowHeight="3:1">
+
+<mat-grid-list cols="1" rowHeight="3em" class="file-upload-loading" *ngIf="loading">
+  <mat-grid-tile [rowspan]="1" >
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </mat-grid-tile>
+  <mat-grid-tile [rowspan]="1" >
+    <span>
+      Fisierul se incarca...
+    </span>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list cols="1" rowHeight="3:1" *ngIf="!loading">
   <mat-grid-tile>
     <input #fileXslx type="file" [hidden]="true" placeholder="Import .xslx file"  (change)="parseXslx($event)">
-    <button mat-fab color="primary" #uploadXlsx (click)="fileXslx.click()" aria-label="Example icon button with a delete icon">
+    <button mat-fab color="primary" #uploadXlsx (click)="fileXslx.click()" aria-label="Uplaod file button">
       <mat-icon>publish</mat-icon>
     </button>
   </mat-grid-tile>

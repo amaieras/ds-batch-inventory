@@ -1,6 +1,5 @@
-import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
-import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-ds-sidenav',
@@ -8,9 +7,6 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./ds-sidenav.component.scss']
 })
 export class DsSidenavComponent implements OnDestroy, OnInit {
-
-
-
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');

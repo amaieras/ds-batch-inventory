@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {Observable} from 'rxjs';
+import {from, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 @Injectable({
@@ -15,7 +15,8 @@ export class UploadFileService {
   }
   saveBatch(batch) {
     const date = new Date().getTime().toString();
-    return this.firestore.collection('batches').doc(date).set({name: date});
+    const promise = this.firestore.collection('batches').doc(date).set(batch);
+    return from(promise);
   }
   getHeader(): Observable<any> {
     return this.firestore.collection('headers').valueChanges();

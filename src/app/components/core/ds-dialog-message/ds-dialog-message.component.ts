@@ -1,7 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
-class DialogData {
+interface DialogData {
+  data: [];
+  message: string;
 }
 
 @Component({
@@ -15,7 +17,6 @@ export class DsDialogMessageComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.data);
   }
 
 }
