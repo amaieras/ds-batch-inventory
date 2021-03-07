@@ -102,37 +102,41 @@ export class UploadCsvFileComponent implements OnInit {
 
   private parseDataForHeader(jsonData): string[] {
     const headers = Object.keys(jsonData.Tabelle1[1]);
-    headers[0] = headers[0] === 'Artikel' ? 'Article' : 'Artikel';
-    headers[1] = headers[1] === 'Bezeichnung' ? 'Model' : 'Bezeichnung';
-    headers[2] = headers[2] === 'Menge' ? 'Quantity' : 'Menge';
-    headers[3] = 'Unit Cost';
-    headers[4] = 'Total Unit Cost';
+    headers[0] = headers[0] === 'Artikel' ? 'id' : 'Artikel';
+    headers[1] = headers[1] === 'Bezeichnung' ? 'model' : 'Bezeichnung';
+    headers[2] = headers[2] === 'Menge' ? 'quantity' : 'Menge';
+    headers[3] = 'unitCost';
+    headers[4] = 'totalUnitCost';
 
     return headers;
   }
 
   private saveData(jsonData, existingHeader, message) {
-    return this._uploadFileService.saveBatch(jsonData).pipe
+    const mappedData = jsonData.Tabelle1
+      .map((item, index) => {
+        if (index === 0) {
+          return {
+            totalItems: jsonData.Tabelle1[0].Menge,
+            totalCost: jsonData.Tabelle1[0].__EMPTY_1
+          };
+        } else {
+          return {
+            id: item.Artikel,
+            model: item.Bezeichnung,
+            quantity: item.Menge,
+            unitCost: item.__EMPTY,
+            totalUnitCost: item.__EMPTY_1
+          };
+        }
+    });
+
+    const finalObj = {
+      sheet: mappedData
+    };
+
+    this._uploadFileService.saveBatch(finalObj).pipe
     (
       first()
-    ).subscribe(() => this.openDialog(existingHeader, message));;
-
-
-    const arr = [
-      {
-        title: '',
-        rating:''
-      },
-      {
-        title: '',
-        rating:''
-      }
-    ]
-
-    arr.map(item => {
-      return {
-        t: item.title
-      }
-    })
+    ).subscribe(() => this.openDialog(existingHeader, message));
   }
 }
