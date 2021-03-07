@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {UploadCsvFileComponent} from './components/upload-csv-file/upload-csv-file.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {BatchViewComponent} from "./pages/batch-view/batch-view.component";
 
 
 const routes: Routes = [
   {
-    path: 'upload-file',
-    component: UploadCsvFileComponent
+    path: 'batches',
+    component: BatchViewComponent
   }
   ];
 

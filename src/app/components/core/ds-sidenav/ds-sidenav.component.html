@@ -2,6 +2,8 @@
   <mat-toolbar color="primary" class="example-toolbar">
     <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
     <h1 class="example-app-name">Responsive App</h1>
+    <span class="example-spacer"></span>
+    <app-upload-csv-file></app-upload-csv-file>
   </mat-toolbar>
 
   <mat-sidenav-container class="example-sidenav-container"
@@ -9,7 +11,10 @@
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list>
-        <a routerLink="/upload-file">Incarca fisier</a>
+        <mat-list-item (click)="goToPage('/batches')">
+          <mat-icon>visibility</mat-icon>
+          <a mat-list-item>Loturi</a>
+        </mat-list-item>
       </mat-nav-list>
     </mat-sidenav>
 

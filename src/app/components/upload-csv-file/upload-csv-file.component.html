@@ -10,11 +10,7 @@
   </mat-grid-tile>
 </mat-grid-list>
 
-<mat-grid-list cols="1" rowHeight="3:1" *ngIf="!loading">
-  <mat-grid-tile>
-    <input #fileXslx type="file" [hidden]="true" placeholder="Import .xslx file"  (change)="parseXslx($event)">
-    <button mat-fab color="primary" #uploadXlsx (click)="fileXslx.click()" aria-label="Upload file button">
-      <mat-icon>publish</mat-icon>
-    </button>
-  </mat-grid-tile>
-</mat-grid-list>
+<input #fileXslx type="file" [hidden]="true" placeholder="Import .xslx file"  (change)="parseXslx($event)">
+<button [matTooltip]="'Incarca fisier'" mat-icon-button aria-label="Upload file button" (click)="fileXslx.click()" #uploadXlsx>
+  <mat-icon>publish</mat-icon>
+</button>

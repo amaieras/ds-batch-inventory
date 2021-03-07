@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material-module';
 import {FirebaseModule} from './firebase-module';
 import { DsDialogMessageComponent } from './components/core/ds-dialog-message/ds-dialog-message.component';
+import { BatchViewComponent } from './pages/batch-view/batch-view.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { DsDialogMessageComponent } from './components/core/ds-dialog-message/ds
     AppComponent,
     UploadCsvFileComponent,
     DsSidenavComponent,
-    DsDialogMessageComponent
+    DsDialogMessageComponent,
+    BatchViewComponent
   ],
   imports: [
     BrowserModule,
