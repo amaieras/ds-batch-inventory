@@ -4,24 +4,26 @@
 
 export const environment = {
   production: false,
-  // firebaseConfig: {
-  //   apiKey: 'AIzaSyAK-dm2SIeA9b9n38l6f6QyOC-Yrzjcq8E',
-  //   authDomain: 'ds-batch-inventory-8de9d.firebaseapp.com',
-  //   projectId: 'ds-batch-inventory-8de9d',
-  //   storageBucket: 'ds-batch-inventory-8de9d.appspot.com',
-  //   messagingSenderId: '824507796863',
-  //   appId: '1:824507796863:web:0cabb836122b1ec0ee1e4a',
-  //   measurementId: 'G-4X1QGJG49T'
-  // },
+  //Romina config
   firebaseConfig: {
-    apiKey: 'AIzaSyBK5rKFSqBFKmLEDdM49dKmcpOmSTEV1HY',
-    authDomain: 'ds-batch-inventory.firebaseapp.com',
-    projectId: 'ds-batch-inventory',
-    storageBucket: 'ds-batch-inventory.appspot.com',
-    messagingSenderId: '391465097419',
-    appId: '1:391465097419:web:a58473eb8d80de443e234e',
-    measurementId: 'G-3CF7R3P1WV'
-  }
+    apiKey: 'AIzaSyAK-dm2SIeA9b9n38l6f6QyOC-Yrzjcq8E',
+    authDomain: 'ds-batch-inventory-8de9d.firebaseapp.com',
+    projectId: 'ds-batch-inventory-8de9d',
+    storageBucket: 'ds-batch-inventory-8de9d.appspot.com',
+    messagingSenderId: '824507796863',
+    appId: '1:824507796863:web:0cabb836122b1ec0ee1e4a',
+    measurementId: 'G-4X1QGJG49T'
+  },
+  //Andrei config
+  // firebaseConfig: {
+  //   apiKey: 'AIzaSyBK5rKFSqBFKmLEDdM49dKmcpOmSTEV1HY',
+  //   authDomain: 'ds-batch-inventory.firebaseapp.com',
+  //   projectId: 'ds-batch-inventory',
+  //   storageBucket: 'ds-batch-inventory.appspot.com',
+  //   messagingSenderId: '391465097419',
+  //   appId: '1:391465097419:web:a58473eb8d80de443e234e',
+  //   measurementId: 'G-3CF7R3P1WV'
+  // }
 };
 
 /*

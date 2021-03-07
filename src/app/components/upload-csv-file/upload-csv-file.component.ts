@@ -69,31 +69,28 @@ export class UploadCsvFileComponent implements OnInit {
     this.loading = true;
     this._uploadFileService.getHeader().pipe(
       first(),
-      map(h => h[0] ? h[0].headers : null),
       finalize(() => {
         ev.target.value = '';
         this.loading = false;
-      })
+      }),
+      map(h => h[0] ? h[0].headers : null)
     ).subscribe(existingHeader => {
-      let canSaveData = false;
       let message = '';
       if (!existingHeader) {
         this._uploadFileService.saveHeader(headerObj).then(() => {
           message = 'Fiser salvat cu succes. Si a fost adaugat un format de fisier.';
-          canSaveData = true;
+          this.saveData(jsonData, existingHeader, message);
         });
       } else {
         if (headerObj.headers.length === existingHeader.length &&
           existingHeader.every((value, index) => value === headerObj.headers[index])){
           message = 'Fiser salvat cu succes.';
-          canSaveData = true;
+          this.saveData(jsonData, existingHeader, message);
         } else {
           message = 'Capul de tabel e diferit. Ar trebui sa arate asa:';
+          this.openDialog(null, message);
         }
       }
-
-      // header is valid
-      if (canSaveData) { this.saveData(jsonData).pipe(first()).subscribe(() => this.openDialog(existingHeader, message)); }
     });
   }
 
@@ -105,13 +102,37 @@ export class UploadCsvFileComponent implements OnInit {
 
   private parseDataForHeader(jsonData): string[] {
     const headers = Object.keys(jsonData.Tabelle1[1]);
+    headers[0] = headers[0] === 'Artikel' ? 'Article' : 'Artikel';
+    headers[1] = headers[1] === 'Bezeichnung' ? 'Model' : 'Bezeichnung';
+    headers[2] = headers[2] === 'Menge' ? 'Quantity' : 'Menge';
     headers[3] = 'Unit Cost';
     headers[4] = 'Total Unit Cost';
 
     return headers;
   }
 
-  private saveData(jsonData) {
-    return this._uploadFileService.saveBatch(jsonData);
+  private saveData(jsonData, existingHeader, message) {
+    return this._uploadFileService.saveBatch(jsonData).pipe
+    (
+      first()
+    ).subscribe(() => this.openDialog(existingHeader, message));;
+
+
+    const arr = [
+      {
+        title: '',
+        rating:''
+      },
+      {
+        title: '',
+        rating:''
+      }
+    ]
+
+    arr.map(item => {
+      return {
+        t: item.title
+      }
+    })
   }
 }
