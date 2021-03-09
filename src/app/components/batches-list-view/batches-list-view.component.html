@@ -1,0 +1,51 @@
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="addedDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Data adaugarii </th>
+      <td mat-cell *matCellDef="let row"> {{row.addedDate | date : 'dd/MM/yyyy HH:mm:ss a'}} </td>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container matColumnDef="totalCost">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Total cost </th>
+      <td mat-cell *matCellDef="let row"> {{row.totalCost}} € </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="totalItems">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Total produse </th>
+      <td mat-cell *matCellDef="let row"> {{row.totalItems}} </td>
+    </ng-container>
+
+    <!-- Color Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Actiuni </th>
+      <td mat-cell *matCellDef="let row">
+        {{row.actions}}
+        <button mat-mini-fab class="mr-button-link" color="primary" aria-label="Example icon button with a menu icon">
+          <fa-icon [icon]="faExternalLinkSquareAlt"></fa-icon>
+        </button>
+        <button mat-mini-fab color="warn" aria-label="Example icon button with a menu icon">
+          <fa-icon [icon]="faTrashAlt"></fa-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

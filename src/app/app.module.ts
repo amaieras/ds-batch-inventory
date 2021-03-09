@@ -15,6 +15,9 @@ import { MaterialModule } from './material-module';
 import {FirebaseModule} from './firebase-module';
 import { DsDialogMessageComponent } from './components/core/ds-dialog-message/ds-dialog-message.component';
 import { BatchViewComponent } from './pages/batch-view/batch-view.component';
+import { BatchesListViewComponent } from './components/batches-list-view/batches-list-view.component';
+import { BatchComponent } from './components/batch/batch.component';
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 
 @NgModule({
@@ -23,7 +26,9 @@ import { BatchViewComponent } from './pages/batch-view/batch-view.component';
     UploadCsvFileComponent,
     DsSidenavComponent,
     DsDialogMessageComponent,
-    BatchViewComponent
+    BatchViewComponent,
+    BatchesListViewComponent,
+    BatchComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +39,8 @@ import { BatchViewComponent } from './pages/batch-view/batch-view.component';
     MaterialModule,
     MatNativeDateModule,
     ReactiveFormsModule,
-    FirebaseModule
+    FirebaseModule,
+    FontAwesomeModule
   ],
   bootstrap: [AppComponent],
   providers: [

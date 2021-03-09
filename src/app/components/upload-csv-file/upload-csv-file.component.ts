@@ -117,7 +117,8 @@ export class UploadCsvFileComponent implements OnInit {
         if (index === 0) {
           return {
             totalItems: jsonData.Tabelle1[0].Menge,
-            totalCost: jsonData.Tabelle1[0].__EMPTY_1
+            totalCost: jsonData.Tabelle1[0].__EMPTY_1,
+            addedDate: new Date().getTime().toString()
           };
         } else {
           return {
