@@ -1,23 +1,34 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
+import {from, Observable} from 'rxjs';
+import {LoadingService} from '../components/core/loading/loading.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BatchService {
 
-  constructor(private firestore: AngularFirestore) { }
+  constructor(private firestore: AngularFirestore,
+              private loading: LoadingService) { }
 
-  getBatches() {
-    return this.firestore.collection('batches').valueChanges();
+  saveHeader(header) {
+    return this.firestore.collection('headers').add(header);
   }
-
+  saveBatch(batch, date) {
+    const promise = this.firestore.collection('batches').doc(date).set(batch);
+    const saveBatch$ = from(promise);
+    this.loading.showLoaderUntilCompleted(saveBatch$)
+      .subscribe();
+    return saveBatch$;
+  }
+  getHeader(): Observable<any> {
+    return this.firestore.collection('headers').valueChanges();
+  }
   deleteBatch(id) {
-    this.firestore.collection('batches').doc(id).delete().then(() => {
-      console.log('Document successfully deleted!');
-    }).catch((error) => {
-      console.error('Error removing document: ', error);
-    });
+    const deletedBatch$ = from(this.firestore.collection('batches').doc(id).delete());
+    this.loading.showLoaderUntilCompleted(deletedBatch$)
+      .subscribe();
+    return deletedBatch$;
   }
 }
 

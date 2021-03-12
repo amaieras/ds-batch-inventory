@@ -4,6 +4,7 @@ import {catchError, map, shareReplay, tap} from 'rxjs/operators';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {LoadingService} from '../components/core/loading/loading.service';
 import {Batch, sortBatchesByAddedDate} from '../model/batch';
+import {MessagesService} from '../components/core/messages/messages.service';
 
 
 @Injectable({
@@ -17,7 +18,8 @@ export class BatchesStore {
 
   constructor(
     private firestore: AngularFirestore,
-    private loading: LoadingService) {
+    private loading: LoadingService,
+    private messages: MessagesService) {
     this.loadAllBatches();
 
   }
@@ -26,7 +28,8 @@ export class BatchesStore {
     const loadBatches$ = this.firestore.collection('batches').valueChanges().pipe(
       map(response => response.map(resp => resp["sheet"])),
       catchError(err => {
-        const message = 'Could not load batches';
+        const message = 'Nu am putut incarca loturile. Contacteaza-l pe Andrei soft.';
+        this.messages.showErrors(message);
         console.log(message, err);
         return throwError(err);
       }),

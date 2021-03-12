@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {NgxCsvParser, NgxCSVParserError} from 'ngx-csv-parser';
 import * as XLSX from 'xlsx';
-import {UploadFileService} from '../../services/upload-file.service';
 import {finalize, first, map} from 'rxjs/operators';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {BatchService} from '../../services/batch.service';
 
 @Component({
   selector: 'app-upload-csv-file',
@@ -15,7 +15,7 @@ export class UploadCsvFileComponent implements OnInit {
 
   constructor(
     private ngxCsvParser: NgxCsvParser,
-    private _uploadFileService: UploadFileService,
+    private _batchService: BatchService,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar) { }
   csvRecords: any[] = [];
@@ -67,7 +67,7 @@ export class UploadCsvFileComponent implements OnInit {
       headers
     };
     this.loading = true;
-    this._uploadFileService.getHeader().pipe(
+    this._batchService.getHeader().pipe(
       first(),
       finalize(() => {
         ev.target.value = '';
@@ -77,7 +77,7 @@ export class UploadCsvFileComponent implements OnInit {
     ).subscribe(existingHeader => {
       let message = '';
       if (!existingHeader) {
-        this._uploadFileService.saveHeader(headerObj).then(() => {
+        this._batchService.saveHeader(headerObj).then(() => {
           message = 'Fiser salvat cu succes. Si a fost adaugat un format de fisier.';
           this.saveData(jsonData, existingHeader, message);
         });
@@ -136,7 +136,7 @@ export class UploadCsvFileComponent implements OnInit {
       sheet: mappedData
     };
 
-    this._uploadFileService.saveBatch(finalObj, addedDate).pipe
+    this._batchService.saveBatch(finalObj, addedDate).pipe
     (
       first()
     ).subscribe(() => this.openDialog(existingHeader, message));

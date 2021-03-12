@@ -1,4 +1,3 @@
-
 export interface Batch {
   addedDate: string;
   totalCost: string;
@@ -8,5 +7,5 @@ export interface Batch {
 
 
 export function sortBatchesByAddedDate(b1: Batch, b2: Batch) {
-  return b1.addedDate > b2.addedDate ? -1 : 1;
+  return b1.addedDate > b2.addedDate ? 1 : -1;
 }

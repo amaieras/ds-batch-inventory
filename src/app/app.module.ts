@@ -24,6 +24,8 @@ import {LoadingComponent} from './components/core/loading/loading.component';
 import { LoadingService } from './components/core/loading/loading.service';
 // for Core import:
 import { LoadingBarModule } from '@ngx-loading-bar/core';
+import {MessagesComponent} from './components/core/messages/messages.component';
+import {MessagesService} from './components/core/messages/messages.service';
 
 
 @NgModule({
@@ -36,7 +38,8 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
     BatchesListViewComponent,
     BatchComponent,
     AddClientComponent,
-    LoadingComponent
+    LoadingComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +60,7 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
   bootstrap: [AppComponent],
   providers: [
     LoadingService,
+    MessagesService,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
   ]
 })
