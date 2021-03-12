@@ -1,7 +1,7 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
   <mat-toolbar color="primary" class="example-toolbar">
     <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-    <h1 class="example-app-name">Responsive App</h1>
+    <h1 class="example-app-name">Manage loturi</h1>
     <span class="example-spacer"></span>
     <app-upload-csv-file></app-upload-csv-file>
   </mat-toolbar>
@@ -9,8 +9,12 @@
   <mat-sidenav-container class="example-sidenav-container"
                          [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
-                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" opened>
       <mat-nav-list>
+        <mat-list-item (click)="goToPage('/add-client')">
+          <mat-icon>add_box</mat-icon>
+          <a mat-list-item>Adauga Client</a>
+        </mat-list-item>
         <mat-list-item (click)="goToPage('/batches')">
           <mat-icon>visibility</mat-icon>
           <a mat-list-item>Loturi</a>

@@ -3,3 +3,152 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/*
+ Dynamic classes for margin multiple of 5 px
+ */
+@for $i from 0 through 10 {
+  .pt-5-#{$i} {
+    padding-top: #{$i*5}px !important;
+  }
+
+  .pr-5-#{$i} {
+    padding-right: #{$i*5}px !important;
+  }
+
+  .pb-5-#{$i} {
+    padding-bottom: #{$i*5}px !important;
+  }
+
+  .pl-5-#{$i} {
+    padding-left: #{$i*5}px !important;
+  }
+
+  .pt-10-#{$i} {
+    padding-top: #{$i*10}px !important;
+  }
+
+  .pr-10-#{$i} {
+    padding-right: #{$i*10}px !important;
+  }
+
+  .pb-10-#{$i} {
+    padding-bottom: #{$i*10}px !important;
+  }
+
+  .pl-10-#{$i} {
+    padding-left: #{$i*10}px !important;
+  }
+
+  // margin
+  .mt-5-#{$i} {
+    margin-top: #{$i*5}px !important;
+  }
+
+  .mr-5-#{$i} {
+    margin-right: #{$i*5}px !important;
+  }
+
+  .mb-5-#{$i} {
+    margin-bottom: #{$i*5}px !important;
+  }
+
+  .ml-5-#{$i} {
+    margin-left: #{$i*5}px !important;
+  }
+
+  .mt-10-#{$i} {
+    margin-top: #{$i*10}px !important;
+  }
+
+  .mr-10-#{$i} {
+    margin-right: #{$i*10}px !important;
+  }
+
+  .mb-10-#{$i} {
+    margin-bottom: #{$i*10}px !important;
+  }
+
+  .ml-10-#{$i} {
+    margin-left: #{$i*10}px !important;
+  }
+
+  .pa-5-#{$i} {
+    padding: #{$i*5}px !important;
+  }
+  .pa-10-#{$i} {
+    padding: #{$i*10}px !important;
+  }
+  .ma-5-#{$i} {
+    margin: #{$i*5}px !important;
+  }
+  .ma-10-#{$i} {
+    margin: #{$i*10}px !important;
+  }
+}
+
+.ml-auto {
+  margin-left: auto !important;
+}
+
+.mt-0 {
+  margin-top: 0 !important;
+}
+
+.mr-0 {
+  margin-right: 0 !important;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.ml-0 {
+  margin-left: 0 !important;
+}
+/*
+ Dynamic classes for margin multiple of 4 px
+ */
+@for $i from 1 through 10 {
+  .pt-4-#{$i} {
+    padding-top: #{$i*4}px !important;
+  }
+
+  .pr-4-#{$i} {
+    padding-right: #{$i*4}px !important;
+  }
+
+  .pb-4-#{$i} {
+    padding-bottom: #{$i*4}px !important;
+  }
+
+  .pl-4-#{$i} {
+    padding-left: #{$i*4}px !important;
+  }
+
+
+  // margin
+  .mt-4-#{$i} {
+    margin-top: #{$i*4}px !important;
+  }
+
+  .mr-4-#{$i} {
+    margin-right: #{$i*4}px !important;
+  }
+
+  .mb-4-#{$i} {
+    margin-bottom: #{$i*4}px !important;
+  }
+
+  .ml-4-#{$i} {
+    margin-left: #{$i*4}px !important;
+  }
+
+
+  .pa-4-#{$i} {
+    padding: #{$i*4}px !important;
+  }
+  .ma-4-#{$i} {
+    margin: #{$i*4}px !important;
+  }
+}

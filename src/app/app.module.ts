@@ -17,7 +17,13 @@ import { DsDialogMessageComponent } from './components/core/ds-dialog-message/ds
 import { BatchViewComponent } from './pages/batch-view/batch-view.component';
 import { BatchesListViewComponent } from './components/batches-list-view/batches-list-view.component';
 import { BatchComponent } from './components/batch/batch.component';
-import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { AddClientComponent } from './pages/add-client/add-client.component';
+import {FlexModule} from '@angular/flex-layout';
+import {LoadingComponent} from './components/core/loading/loading.component';
+import { LoadingService } from './components/core/loading/loading.service';
+// for Core import:
+import { LoadingBarModule } from '@ngx-loading-bar/core';
 
 
 @NgModule({
@@ -28,7 +34,9 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     DsDialogMessageComponent,
     BatchViewComponent,
     BatchesListViewComponent,
-    BatchComponent
+    BatchComponent,
+    AddClientComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -40,10 +48,15 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     MatNativeDateModule,
     ReactiveFormsModule,
     FirebaseModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FlexModule,
+    // for Core use:
+    LoadingBarModule
+
   ],
   bootstrap: [AppComponent],
   providers: [
+    LoadingService,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
   ]
 })
