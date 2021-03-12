@@ -4,6 +4,8 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {BatchService} from '../../services/batch.service';
 import {faExternalLinkSquareAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import {ConfirmDialogComponent, ConfirmDialogModel} from '../confirm-dialog/confirm-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 export interface BatchData {
   addedDate: string;
@@ -18,6 +20,7 @@ export interface BatchData {
   styleUrls: ['./batches-list-view.component.scss']
 })
 export class BatchesListViewComponent implements OnInit{
+  result: string = '';
   faExternalLinkSquareAlt = faExternalLinkSquareAlt;
   faTrashAlt = faTrashAlt;
   displayedColumns: string[] = ['addedDate', 'totalCost', 'totalItems', 'actions'];
@@ -26,7 +29,8 @@ export class BatchesListViewComponent implements OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _batch: BatchService) {
+  constructor(private _batch: BatchService,
+              public  dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -57,7 +61,19 @@ export class BatchesListViewComponent implements OnInit{
   }
 
   deleteBatch(batch) {
-    this._batch.deleteBatch(batch.addedDate);
+    const message = `Sunteti sigur ca doriti sa stergeti acest lot?`;
+
+    const dialogData = new ConfirmDialogModel('Confirmare stergere', message);
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: '400px',
+      data: dialogData
+    });
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if(dialogResult) {
+        this._batch.deleteBatch(batch.addedDate);
+      }
+    });
   }
 }
 

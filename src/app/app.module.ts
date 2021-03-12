@@ -18,6 +18,7 @@ import { BatchViewComponent } from './pages/batch-view/batch-view.component';
 import { BatchesListViewComponent } from './components/batches-list-view/batches-list-view.component';
 import { BatchComponent } from './components/batch/batch.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     DsDialogMessageComponent,
     BatchViewComponent,
     BatchesListViewComponent,
-    BatchComponent
+    BatchComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
