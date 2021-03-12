@@ -17,6 +17,7 @@ import { DsDialogMessageComponent } from './components/core/ds-dialog-message/ds
 import { BatchViewComponent } from './pages/batch-view/batch-view.component';
 import { BatchesListViewComponent } from './components/batches-list-view/batches-list-view.component';
 import { BatchComponent } from './components/batch/batch.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import { AddClientComponent } from './pages/add-client/add-client.component';
 import {FlexModule} from '@angular/flex-layout';
@@ -36,6 +37,8 @@ import {MessagesService} from './components/core/messages/messages.service';
     DsDialogMessageComponent,
     BatchViewComponent,
     BatchesListViewComponent,
+    BatchComponent,
+    ConfirmDialogComponent
     BatchComponent,
     AddClientComponent,
     LoadingComponent,

@@ -8,6 +8,8 @@ import {Subject} from 'rxjs';
 import {Batch} from '../../model/batch';
 import {BatchesStore} from '../../services/batches.store';
 import {BatchService} from '../../services/batch.service';
+import {ConfirmDialogComponent, ConfirmDialogModel} from '../confirm-dialog/confirm-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-batches-list-view',
@@ -27,7 +29,8 @@ export class BatchesListViewComponent implements OnInit, OnDestroy {
   unsubscribeSignal: Subject<void> = new Subject();
 
   constructor(private _batchStore: BatchesStore,
-              private _batchService: BatchService) {
+              private _batchService: BatchService,
+              public  dialog: MatDialog) {
   }
 
   ngOnDestroy(): void {
@@ -67,7 +70,19 @@ export class BatchesListViewComponent implements OnInit, OnDestroy {
   }
 
   deleteBatch(batch) {
-    this._batchService.deleteBatch(batch.addedDate);
+    const message = `Sunteti sigur ca doriti sa stergeti acest lot?`;
+
+    const dialogData = new ConfirmDialogModel('Confirmare stergere', message);
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: '400px',
+      data: dialogData
+    });
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if(dialogResult) {
+        this._batchService.deleteBatch(batch.addedDate);
+      }
+    });
   }
 }
 
