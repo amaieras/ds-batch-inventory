@@ -32,7 +32,7 @@
         <button [matTooltip]="'Vezi detalii lot'" mat-mini-fab class="mr-button-link" color="primary" aria-label="Example icon button with a menu icon">
           <fa-icon [icon]="faExternalLinkSquareAlt"></fa-icon>
         </button>
-        <button [matTooltip]="'Sterge lot'" mat-mini-fab color="warn" aria-label="Example icon button with a menu icon">
+        <button [matTooltip]="'Sterge lot'" mat-mini-fab color="warn" aria-label="Example icon button with a menu icon" (click)="deleteBatch(row)">
           <fa-icon [icon]="faTrashAlt"></fa-icon>
         </button>
       </td>

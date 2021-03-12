@@ -11,4 +11,13 @@ export class BatchService {
   getBatches() {
     return this.firestore.collection('batches').valueChanges();
   }
+
+  deleteBatch(id) {
+    this.firestore.collection('batches').doc(id).delete().then(() => {
+      console.log('Document successfully deleted!');
+    }).catch((error) => {
+      console.error('Error removing document: ', error);
+    });
+  }
 }
+

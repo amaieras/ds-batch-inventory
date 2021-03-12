@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
@@ -7,14 +7,7 @@ import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {Batch} from '../../model/batch';
 import {BatchesStore} from '../../services/batches.store';
-
-export interface BatchData {
-  addedDate: string;
-  totalCost: string;
-  totalItems: string;
-  actions: string;
-}
-
+import {BatchService} from '../../services/batch.service';
 
 @Component({
   selector: 'app-batches-list-view',
@@ -25,7 +18,7 @@ export class BatchesListViewComponent implements OnInit, OnDestroy {
   faExternalLinkSquareAlt = faExternalLinkSquareAlt;
   faTrashAlt = faTrashAlt;
   displayedColumns: string[] = ['addedDate', 'totalCost', 'totalItems', 'actions'];
-  dataSource: MatTableDataSource<BatchData>;
+  dataSource: MatTableDataSource<Batch>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -33,7 +26,8 @@ export class BatchesListViewComponent implements OnInit, OnDestroy {
   // used to unsubscribe multiple subscriptions
   unsubscribeSignal: Subject<void> = new Subject();
 
-  constructor(private _batchStore: BatchesStore) {
+  constructor(private _batchStore: BatchesStore,
+              private _batchService: BatchService) {
   }
 
   ngOnDestroy(): void {
@@ -70,6 +64,10 @@ export class BatchesListViewComponent implements OnInit, OnDestroy {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  deleteBatch(batch) {
+    this._batchService.deleteBatch(batch.addedDate);
   }
 }
 
