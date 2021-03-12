@@ -112,13 +112,14 @@ export class UploadCsvFileComponent implements OnInit {
   }
 
   private saveData(jsonData, existingHeader, message) {
+    const addedDate = new Date().getTime().toString();
     const mappedData = jsonData.Tabelle1
       .map((item, index) => {
         if (index === 0) {
           return {
             totalItems: jsonData.Tabelle1[0].Menge,
             totalCost: jsonData.Tabelle1[0].__EMPTY_1,
-            addedDate: new Date().getTime().toString()
+            addedDate
           };
         } else {
           return {
@@ -135,7 +136,7 @@ export class UploadCsvFileComponent implements OnInit {
       sheet: mappedData
     };
 
-    this._uploadFileService.saveBatch(finalObj).pipe
+    this._uploadFileService.saveBatch(finalObj, addedDate).pipe
     (
       first()
     ).subscribe(() => this.openDialog(existingHeader, message));

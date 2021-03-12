@@ -13,8 +13,7 @@ export class UploadFileService {
   saveHeader(header) {
     return this.firestore.collection('headers').add(header);
   }
-  saveBatch(batch) {
-    const date = new Date().getTime().toString();
+  saveBatch(batch, date) {
     const promise = this.firestore.collection('batches').doc(date).set(batch);
     return from(promise);
   }
