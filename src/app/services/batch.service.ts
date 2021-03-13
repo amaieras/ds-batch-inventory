@@ -24,8 +24,9 @@ export class BatchService {
   getHeader(): Observable<any> {
     return this.firestore.collection('headers').valueChanges();
   }
-  deleteBatch(id) {
-    const deletedBatch$ = from(this.firestore.collection('batches').doc(id).delete());
+  markAsDelete(id) {
+    const deletedAt = new Date().getTime().toString();
+    const deletedBatch$ = from(this.firestore.collection('batches').doc(id).update({ 'info.deletedAt' : deletedAt}));
     this.loading.showLoaderUntilCompleted(deletedBatch$)
       .subscribe();
     return deletedBatch$;

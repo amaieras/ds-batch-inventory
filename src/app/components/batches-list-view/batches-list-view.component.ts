@@ -33,12 +33,6 @@ export class BatchesListViewComponent implements OnInit, OnDestroy {
               public  dialog: MatDialog) {
   }
 
-  ngOnDestroy(): void {
-    // unsubscribe to all subscriptions
-    this.unsubscribeSignal.next();
-    // Don't forget to unsubscribe from subject itself
-    this.unsubscribeSignal.unsubscribe();
-  }
 
   ngOnInit(): void {
     this._batchStore.getSortedBatches().pipe(
@@ -47,9 +41,9 @@ export class BatchesListViewComponent implements OnInit, OnDestroy {
       let arrBatches = [];
       batches.forEach(batch => {
         const obj = {
-          addedDate: batch[0].addedDate,
-          totalCost: batch[0].totalCost,
-          totalItems: batch[0].totalItems,
+          addedDate: batch.addedDate,
+          totalCost: batch.totalCost,
+          totalItems: batch.totalItems,
           actions: ''
         };
         arrBatches = arrBatches.concat([obj]);
@@ -58,6 +52,13 @@ export class BatchesListViewComponent implements OnInit, OnDestroy {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+  }
+
+  ngOnDestroy(): void {
+    // unsubscribe to all subscriptions
+    this.unsubscribeSignal.next();
+    // Don't forget to unsubscribe from subject itself
+    this.unsubscribeSignal.unsubscribe();
   }
 
   applyFilter(event: Event) {
@@ -80,9 +81,10 @@ export class BatchesListViewComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(dialogResult => {
       if(dialogResult) {
-        this._batchService.deleteBatch(batch.addedDate);
+        this._batchService.markAsDelete(batch.addedDate);
       }
     });
   }
+
 }
 

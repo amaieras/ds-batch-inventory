@@ -3,6 +3,7 @@ export interface Batch {
   totalCost: string;
   totalItems: string;
   actions: string;
+  deletedAt?: string;
 }
 
 

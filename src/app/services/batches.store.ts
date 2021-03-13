@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
-import {catchError, map, shareReplay, tap} from 'rxjs/operators';
+import {catchError, filter, map, shareReplay, tap} from 'rxjs/operators';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {LoadingService} from '../components/core/loading/loading.service';
 import {Batch, sortBatchesByAddedDate} from '../model/batch';
@@ -26,13 +26,17 @@ export class BatchesStore {
 
   private loadAllBatches() {
     const loadBatches$ = this.firestore.collection('batches').valueChanges().pipe(
-      map(response => response.map(resp => resp["sheet"])),
-      catchError(err => {
-        const message = 'Nu am putut incarca loturile. Contacteaza-l pe Andrei soft.';
-        this.messages.showErrors(message);
-        console.log(message, err);
-        return throwError(err);
+      map(response => {
+        return response.
+          filter(resp => !resp.info.deletedAt)
+          .map(resp => resp.info);
       }),
+      catchError(err => {
+          const message = 'Nu am putut incarca loturile. Contacteaza-l pe Andrei soft.';
+          this.messages.showErrors(message);
+          console.log(message, err);
+          return throwError(err);
+        }),
       tap(batches => this.subject.next(batches))
     );
     this.loading.showLoaderUntilCompleted(loadBatches$)
@@ -41,7 +45,9 @@ export class BatchesStore {
   getSortedBatches(): Observable<Batch[]> {
     return this.batches$
       .pipe(
-        map(batches => batches.sort(sortBatchesByAddedDate))
+        map(batches => {
+          return batches.sort(sortBatchesByAddedDate);
+        })
       );
   }
 

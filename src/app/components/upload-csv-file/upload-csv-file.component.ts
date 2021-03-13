@@ -113,15 +113,8 @@ export class UploadCsvFileComponent implements OnInit {
 
   private saveData(jsonData, existingHeader, message) {
     const addedDate = new Date().getTime().toString();
-    const mappedData = jsonData.Tabelle1
-      .map((item, index) => {
-        if (index === 0) {
-          return {
-            totalItems: jsonData.Tabelle1[0].Menge,
-            totalCost: jsonData.Tabelle1[0].__EMPTY_1,
-            addedDate
-          };
-        } else {
+    const data = jsonData.Tabelle1.slice(1)
+      .map(item => {
           return {
             id: item.Artikel,
             model: item.Bezeichnung,
@@ -129,11 +122,15 @@ export class UploadCsvFileComponent implements OnInit {
             unitCost: item.__EMPTY,
             totalUnitCost: item.__EMPTY_1
           };
-        }
     });
 
     const finalObj = {
-      sheet: mappedData
+      data,
+      info: {
+        totalItems: jsonData.Tabelle1[0].Menge,
+        totalCost: jsonData.Tabelle1[0].__EMPTY_1,
+        addedDate
+      }
     };
 
     this._batchService.saveBatch(finalObj, addedDate).pipe

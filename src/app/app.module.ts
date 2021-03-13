@@ -27,6 +27,7 @@ import { LoadingService } from './components/core/loading/loading.service';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import {MessagesComponent} from './components/core/messages/messages.component';
 import {MessagesService} from './components/core/messages/messages.service';
+import { ClientComponent } from './components/client/client/client.component';
 
 
 @NgModule({
@@ -38,11 +39,12 @@ import {MessagesService} from './components/core/messages/messages.service';
     BatchViewComponent,
     BatchesListViewComponent,
     BatchComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
     BatchComponent,
     AddClientComponent,
     LoadingComponent,
-    MessagesComponent
+    MessagesComponent,
+    ClientComponent
   ],
   imports: [
     BrowserModule,
