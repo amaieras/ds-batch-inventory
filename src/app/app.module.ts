@@ -27,7 +27,9 @@ import { LoadingService } from './components/core/loading/loading.service';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import {MessagesComponent} from './components/core/messages/messages.component';
 import {MessagesService} from './components/core/messages/messages.service';
-import { ClientComponent } from './components/client/client/client.component';
+import { ClientComponent } from './components/client/client.component';
+import { ClientListViewPageComponent } from './pages/client-list-view-page/client-list-view-page.component';
+import { ClientListViewComponent } from './components/client/client-list-view/client-list-view/client-list-view.component';
 
 
 @NgModule({
@@ -44,7 +46,9 @@ import { ClientComponent } from './components/client/client/client.component';
     AddClientComponent,
     LoadingComponent,
     MessagesComponent,
-    ClientComponent
+    ClientComponent,
+    ClientListViewPageComponent,
+    ClientListViewComponent
   ],
   imports: [
     BrowserModule,

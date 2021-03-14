@@ -1,0 +1,71 @@
+<div class="form-container pa-4-6">
+  <form [formGroup]="formGroup" (submit)="save(formGroup.value, userForm);" #userForm>
+    <div fxLayout="row">
+      <mat-form-field fxFlex="50" class="mr-4-6">
+        <mat-label>Nume client</mat-label>
+        <input type="text"
+               placeholder="Nume client"
+               aria-label="Nume client"
+               matInput
+               formControlName="username"
+               [matAutocomplete]="auto">
+        <mat-error *ngIf="!formGroup.controls['username'].valid && formGroup.controls['username'].touched">
+          {{ getErrorUsername() }}
+        </mat-error>
+        <mat-autocomplete #auto="matAutocomplete" multiple>
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field fxFlex="50">
+        <mat-label>Alege telefon</mat-label>
+        <input type="text"
+               placeholder="Lot"
+               aria-label="Lot"
+               matInput
+               formControlName="phone"
+               [matAutocomplete]="phoneAuto">
+        <mat-error *ngIf="!formGroup.controls['phone'].valid && formGroup.controls['phone'].touched">
+          {{ getErrorUsername() }}
+        </mat-error>
+        <mat-autocomplete #phoneAuto="matAutocomplete" [displayWith]="getOptionText">
+          <mat-option *ngFor="let option of filteredPhoneOptions | async" [value]="option">
+            {{option.displayValue}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <!--      <mat-form-field fxFlex="50">-->
+<!--        <mat-label>Alege lot</mat-label>-->
+<!--        <input type="text"-->
+<!--               placeholder="Lot"-->
+<!--               aria-label="Lot"-->
+<!--               matInput-->
+<!--               formControlName="batch"-->
+<!--               [matAutocomplete]="batchAuto">-->
+<!--        <mat-error *ngIf="!formGroup.controls['batch'].valid && formGroup.controls['batch'].touched">-->
+<!--          {{ getErrorUsername() }}-->
+<!--        </mat-error>-->
+<!--        <mat-autocomplete #batchAuto="matAutocomplete">-->
+<!--          <mat-option *ngFor="let option of filteredBatchOptions | async" [value]="option">-->
+<!--            {{option}}-->
+<!--          </mat-option>-->
+<!--        </mat-autocomplete>-->
+<!--      </mat-form-field>-->
+    </div>
+    <div fxLayout="row">
+      <mat-form-field fxFlex="50">
+        <mat-label>Cantitate</mat-label>
+        <input type="number"
+               placeholder="Cantitate"
+               aria-label="Quantity"
+               matInput
+               formControlName="quantity">
+      </mat-form-field>
+    </div>
+    <div class="form-element">
+      <button mat-raised-button color="primary" type="submit">Salveaza</button>
+    </div>
+  </form>
+</div>
