@@ -102,7 +102,8 @@ export class ClientComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group({
       username: [null, [Validators.required]],
       phone: [null, [Validators.required]],
-      quantity: [1, [Validators.required]]
+      quantity: [1, [Validators.required]],
+      pricePaid: [0, [Validators.required]]
     });
   }
 

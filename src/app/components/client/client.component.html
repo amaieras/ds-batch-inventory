@@ -35,33 +35,23 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-
-      <!--      <mat-form-field fxFlex="50">-->
-<!--        <mat-label>Alege lot</mat-label>-->
-<!--        <input type="text"-->
-<!--               placeholder="Lot"-->
-<!--               aria-label="Lot"-->
-<!--               matInput-->
-<!--               formControlName="batch"-->
-<!--               [matAutocomplete]="batchAuto">-->
-<!--        <mat-error *ngIf="!formGroup.controls['batch'].valid && formGroup.controls['batch'].touched">-->
-<!--          {{ getErrorUsername() }}-->
-<!--        </mat-error>-->
-<!--        <mat-autocomplete #batchAuto="matAutocomplete">-->
-<!--          <mat-option *ngFor="let option of filteredBatchOptions | async" [value]="option">-->
-<!--            {{option}}-->
-<!--          </mat-option>-->
-<!--        </mat-autocomplete>-->
-<!--      </mat-form-field>-->
     </div>
     <div fxLayout="row">
-      <mat-form-field fxFlex="50">
+      <mat-form-field fxFlex="50" class="mr-4-6">
         <mat-label>Cantitate</mat-label>
         <input type="number"
                placeholder="Cantitate"
                aria-label="Quantity"
                matInput
                formControlName="quantity">
+      </mat-form-field>
+      <mat-form-field fxFlex="50">
+        <mat-label>Pret achitat</mat-label>
+        <input type="number"
+               placeholder="Pret achitat"
+               aria-label="Pret achitat"
+               matInput
+               formControlName="pricePaid">
       </mat-form-field>
     </div>
     <div class="form-element">
