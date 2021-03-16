@@ -32,5 +32,9 @@ export class BatchService {
       .subscribe();
     return deletedBatch$;
   }
+  getBatchById(batchId) {
+   const promise = this.db.collection('batches').doc(batchId).ref.get();
+   return from(promise);
+  }
 }
 

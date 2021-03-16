@@ -14,8 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material-module';
 import {FirebaseModule} from './firebase-module';
 import { DsDialogMessageComponent } from './components/core/ds-dialog-message/ds-dialog-message.component';
-import { BatchViewComponent } from './pages/batch-view/batch-view.component';
-import { BatchesListViewComponent } from './components/batches-list-view/batches-list-view.component';
+import { BatchViewComponent } from './pages/batch-list-view-page/batch-list-view.component';
+import { BatchesListViewComponent } from './components/batch/batches-list-view/batches-list-view.component';
 import { BatchComponent } from './components/batch/batch.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -27,9 +27,10 @@ import { LoadingService } from './components/core/loading/loading.service';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import {MessagesComponent} from './components/core/messages/messages.component';
 import {MessagesService} from './components/core/messages/messages.service';
+import { BatchPageComponent } from './pages/batch-page/batch-page.component';
 import { ClientComponent } from './components/client/client.component';
 import { ClientListViewPageComponent } from './pages/client-list-view-page/client-list-view-page.component';
-import { ClientListViewComponent } from './components/client/client-list-view/client-list-view/client-list-view.component';
+import { ClientListViewComponent } from './components/client/client-list-view/client-list-view.component';
 
 
 @NgModule({
@@ -46,6 +47,8 @@ import { ClientListViewComponent } from './components/client/client-list-view/cl
     AddClientComponent,
     LoadingComponent,
     MessagesComponent,
+    ClientComponent,
+    BatchPageComponent,
     ClientComponent,
     ClientListViewPageComponent,
     ClientListViewComponent
