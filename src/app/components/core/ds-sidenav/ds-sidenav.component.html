@@ -1,7 +1,7 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
   <mat-toolbar color="primary" class="example-toolbar">
     <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-    <h1 class="example-app-name">Manage loturi</h1>
+    <h1 class="example-app-name">Administrare loturi</h1>
     <span class="example-spacer"></span>
     <app-upload-csv-file></app-upload-csv-file>
   </mat-toolbar>
@@ -18,6 +18,10 @@
         <mat-list-item (click)="goToPage('/batches')">
           <mat-icon>visibility</mat-icon>
           <a mat-list-item>Loturi</a>
+        </mat-list-item>
+        <mat-list-item (click)="goToPage('/clients')">
+          <mat-icon>face</mat-icon>
+          <a mat-list-item>Clienti</a>
         </mat-list-item>
       </mat-nav-list>
     </mat-sidenav>

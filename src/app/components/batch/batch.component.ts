@@ -16,7 +16,6 @@ export class BatchComponent implements OnInit {
    const batchId = this._activatedRoute.snapshot.paramMap.get('id');
    this._batchService.getBatchById(batchId).subscribe(resp => {
      this.batchData = resp.data();
-     console.log(this.batchData);
    });
   }
 

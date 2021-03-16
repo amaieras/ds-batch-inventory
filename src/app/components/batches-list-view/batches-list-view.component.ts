@@ -1,15 +1,15 @@
-import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {faExternalLinkSquareAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
-import {Batch} from '../../model/batch';
 import {BatchesStore} from '../../services/batches.store';
 import {BatchService} from '../../services/batch.service';
 import {ConfirmDialogComponent, ConfirmDialogModel} from '../confirm-dialog/confirm-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {BatchInfo} from '../../model/batch';
 import {Router} from "@angular/router";
 
 @Component({
@@ -21,7 +21,7 @@ export class BatchesListViewComponent implements OnInit, OnDestroy {
   faExternalLinkSquareAlt = faExternalLinkSquareAlt;
   faTrashAlt = faTrashAlt;
   displayedColumns: string[] = ['addedDate', 'totalCost', 'totalItems', 'actions'];
-  dataSource: MatTableDataSource<Batch>;
+  dataSource: MatTableDataSource<BatchInfo>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -37,9 +37,9 @@ export class BatchesListViewComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this._batchStore.getSortedBatches().pipe(
+    this._batchStore.getSortedBatchesInfo().pipe(
       takeUntil(this.unsubscribeSignal.asObservable())
-    ).subscribe((batches: Batch[]) => {
+    ).subscribe((batches: BatchInfo[]) => {
       let arrBatches = [];
       batches.forEach(batch => {
         const obj = {
@@ -82,7 +82,7 @@ export class BatchesListViewComponent implements OnInit, OnDestroy {
       data: dialogData
     });
     dialogRef.afterClosed().subscribe(dialogResult => {
-      if(dialogResult) {
+      if (dialogResult) {
         this._batchService.markAsDelete(batch.addedDate);
       }
     });

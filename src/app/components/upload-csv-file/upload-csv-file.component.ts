@@ -3,8 +3,10 @@ import {NgxCsvParser, NgxCSVParserError} from 'ngx-csv-parser';
 import * as XLSX from 'xlsx';
 import {finalize, first, map} from 'rxjs/operators';
 import {MatDialog} from '@angular/material/dialog';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {BatchService} from '../../services/batch.service';
+import {BatchesStore} from '../../services/batches.store';
+import {Utils} from '../../shared/utils';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-upload-csv-file',
@@ -16,8 +18,9 @@ export class UploadCsvFileComponent implements OnInit {
   constructor(
     private ngxCsvParser: NgxCsvParser,
     private _batchService: BatchService,
-    public dialog: MatDialog,
-    private _snackBar: MatSnackBar) { }
+    private _batchesStore: BatchesStore,
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog) { }
   csvRecords: any[] = [];
   header = false;
 
@@ -88,15 +91,9 @@ export class UploadCsvFileComponent implements OnInit {
           this.saveData(jsonData, existingHeader, message);
         } else {
           message = 'Capul de tabel e diferit. Ar trebui sa arate asa:';
-          this.openDialog(null, message);
+          Utils.openDialog(null, message, this._snackBar);
         }
       }
-    });
-  }
-
-  openDialog(data, message) {
-    this._snackBar.open(message, 'Close', {
-      duration: 5000,
     });
   }
 
@@ -113,6 +110,9 @@ export class UploadCsvFileComponent implements OnInit {
 
   private saveData(jsonData, existingHeader, message) {
     const addedDate = new Date().getTime().toString();
+
+    this.extractPhones(jsonData.Tabelle1.slice(1));
+
     const data = jsonData.Tabelle1.slice(1)
       .map(item => {
           return {
@@ -136,6 +136,43 @@ export class UploadCsvFileComponent implements OnInit {
     this._batchService.saveBatch(finalObj, addedDate).pipe
     (
       first()
-    ).subscribe(() => this.openDialog(existingHeader, message));
+    ).subscribe(() => Utils.openDialog(existingHeader, message, this._snackBar));
+  }
+
+  private extractPhones(phones) {
+    this._batchesStore.getStore().pipe(
+      first()
+    ).subscribe(store => {
+      const phonesByModel = {};
+      phones.forEach(phone => {
+        const item = {
+          model: phone.Bezeichnung,
+          quantity: phone.Menge
+        };
+        const lowerAndSnake = Utils.replaceAndSnake(phone.Bezeichnung);
+        phonesByModel[lowerAndSnake] = item;
+      });
+      if (store.length) {
+        const newStore = {...store[0]};
+        for (const item in phonesByModel) {
+          let newQuantity = 1;
+          if (!store[0][item]) {
+            newStore[Utils.replaceAndSnake(item)] = {
+              model: item,
+              quantity: phonesByModel[item].quantity
+            };
+            newStore[item] = {...store[0][item], quantity: newQuantity};
+          } else {
+            newQuantity = store[0][item].quantity + phonesByModel[item].quantity;
+          }
+          const itemToAdd = store[0][item] || phonesByModel[item];
+          newStore[item] = {...itemToAdd, quantity: newQuantity};
+        }
+        this._batchesStore.saveStore(newStore);
+      } else {
+        // first time saving to store
+        this._batchesStore.saveStore(phonesByModel);
+      }
+    });
   }
 }

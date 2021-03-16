@@ -1,0 +1,5 @@
+{
+  "projects": {
+    "default": "ds-batch-inventory-prod"
+  }
+}

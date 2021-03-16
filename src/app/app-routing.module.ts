@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {BatchViewComponent} from './pages/batch-list-view-page/batch-list-view.component';
 import {AddClientComponent} from './pages/add-client/add-client.component';
 import {BatchPageComponent} from './pages/batch-page/batch-page.component';
+import {ClientListViewPageComponent} from './pages/client-list-view-page/client-list-view-page.component';
 
 
 const routes: Routes = [
@@ -16,12 +17,20 @@ const routes: Routes = [
     component: AddClientComponent
   },
   {
+    path: 'clients',
+    component: ClientListViewPageComponent
+  },
+  {
     path: 'batches',
     component: BatchViewComponent
   },
   {
     path: 'batch/:id',
     component: BatchPageComponent
+  },
+  {
+    path: '**',
+    component: AddClientComponent
   }
   ];
 
