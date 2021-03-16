@@ -5,11 +5,11 @@ import {MatSort} from '@angular/material/sort';
 import {faExternalLinkSquareAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
-import {BatchesStore} from '../../services/batches.store';
-import {BatchService} from '../../services/batch.service';
-import {ConfirmDialogComponent, ConfirmDialogModel} from '../confirm-dialog/confirm-dialog.component';
+import {BatchesStore} from '../../../services/batches.store';
+import {BatchService} from '../../../services/batch.service';
+import {ConfirmDialogComponent, ConfirmDialogModel} from '../../confirm-dialog/confirm-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import {BatchInfo} from '../../model/batch';
+import {BatchInfo} from '../../../model/batch';
 import {Router} from "@angular/router";
 
 @Component({
