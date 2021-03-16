@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BatchViewComponent } from './batch-view.component';
+import { BatchPageComponent } from './batch-page.component';
 
-describe('BatchViewComponent', () => {
-  let component: BatchViewComponent;
-  let fixture: ComponentFixture<BatchViewComponent>;
+describe('BatchPageComponent', () => {
+  let component: BatchPageComponent;
+  let fixture: ComponentFixture<BatchPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BatchViewComponent ]
+      declarations: [ BatchPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BatchViewComponent);
+    fixture = TestBed.createComponent(BatchPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

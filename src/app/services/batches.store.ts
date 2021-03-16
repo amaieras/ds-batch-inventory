@@ -28,8 +28,8 @@ export class BatchesStore {
     const loadBatches$ = this.firestore.collection('batches').valueChanges().pipe(
       map(response => {
         return response.
-          filter(resp => !resp.info.deletedAt)
-          .map(resp => resp.info);
+          filter(resp => !resp["info"].deletedAt)
+          .map(resp => resp["info"]);
       }),
       catchError(err => {
           const message = 'Nu am putut incarca loturile. Contacteaza-l pe Andrei soft.';

@@ -14,7 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material-module';
 import {FirebaseModule} from './firebase-module';
 import { DsDialogMessageComponent } from './components/core/ds-dialog-message/ds-dialog-message.component';
-import { BatchViewComponent } from './pages/batch-view/batch-view.component';
+import { BatchViewComponent } from './pages/batch-list-view-page/batch-list-view.component';
 import { BatchesListViewComponent } from './components/batches-list-view/batches-list-view.component';
 import { BatchComponent } from './components/batch/batch.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
@@ -28,6 +28,7 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
 import {MessagesComponent} from './components/core/messages/messages.component';
 import {MessagesService} from './components/core/messages/messages.service';
 import { ClientComponent } from './components/client/client/client.component';
+import { BatchPageComponent } from './pages/batch-page/batch-page.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { ClientComponent } from './components/client/client/client.component';
     AddClientComponent,
     LoadingComponent,
     MessagesComponent,
-    ClientComponent
+    ClientComponent,
+    BatchPageComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {BatchViewComponent} from './pages/batch-view/batch-view.component';
+import {BatchViewComponent} from './pages/batch-list-view-page/batch-list-view.component';
 import {AddClientComponent} from './pages/add-client/add-client.component';
+import {BatchPageComponent} from './pages/batch-page/batch-page.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'batches',
     component: BatchViewComponent
+  },
+  {
+    path: 'batch/:id',
+    component: BatchPageComponent
   }
   ];
 

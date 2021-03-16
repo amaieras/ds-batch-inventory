@@ -10,6 +10,7 @@ import {BatchesStore} from '../../services/batches.store';
 import {BatchService} from '../../services/batch.service';
 import {ConfirmDialogComponent, ConfirmDialogModel} from '../confirm-dialog/confirm-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-batches-list-view',
@@ -30,7 +31,8 @@ export class BatchesListViewComponent implements OnInit, OnDestroy {
 
   constructor(private _batchStore: BatchesStore,
               private _batchService: BatchService,
-              public  dialog: MatDialog) {
+              public  dialog: MatDialog,
+              private _router: Router) {
   }
 
 
@@ -86,5 +88,8 @@ export class BatchesListViewComponent implements OnInit, OnDestroy {
     });
   }
 
+  goToPage(batchId: string) {
+    this._router.navigateByUrl(`batch/${batchId}`);
+  }
 }
 

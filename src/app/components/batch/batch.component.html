@@ -1,1 +1,7 @@
-<p>batch works!</p>
+<mat-list role="list">
+  <mat-list-item role="listitem">Total cost {{batchData?.info.totalCost}}</mat-list-item>
+  <mat-list-item role="listitem">Total produse {{batchData?.info.totalItems}}</mat-list-item>
+  <mat-list-item role="listitem" *ngFor="let batch of batchData?.data">{{batch.model}}: {{batch.quantity}}</mat-list-item>
+</mat-list>
+
+

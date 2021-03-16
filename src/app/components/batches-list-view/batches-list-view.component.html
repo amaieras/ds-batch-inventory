@@ -29,7 +29,8 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Actiuni </th>
       <td mat-cell *matCellDef="let row">
         {{row.actions}}
-        <button [matTooltip]="'Vezi detalii lot'" mat-mini-fab class="mr-button-link" color="primary" aria-label="Example icon button with a menu icon">
+        <button [matTooltip]="'Vezi detalii lot'" mat-mini-fab class="mr-button-link" color="primary" aria-label="Example icon button with a menu icon"
+                (click)="goToPage(row.addedDate)">
           <fa-icon [icon]="faExternalLinkSquareAlt"></fa-icon>
         </button>
         <button [matTooltip]="'Sterge lot'" mat-mini-fab color="warn" aria-label="Example icon button with a menu icon" (click)="deleteBatch(row)">
